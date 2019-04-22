@@ -54,18 +54,19 @@ import math
 print(3+1.5+4)
 number =25
 number =6
-print(math.sqrt(25))
-print(math.pow(number,2))
+print(math.sqrt(25))  #Square Root
+print(math.pow(number,2)) #Square
 
 S='hello'
-print(S[1])
+print(S[1]) # Print 'e'
 
-print(S[::-1])
+print(S[::-1])  #REVERSE OF A STRING
 
 len=len(S)
-print(S[len-1])
-print(S[-1])
+print(S[len-1]) # Print o
+print(S[-1]) #Print o
 
+# Creating the list in two forms
 list1=[0,0,0]
 list2= []
 list2.append(0)
@@ -75,14 +76,17 @@ list2.append(0)
 print(list1)
 print(list2)
 
+#Replacing Hello with GoodBye
 list3 = [1,2,[3,4,'hello']]
 list3[2][2]='goodbye'
 print(list3)
 
+#Sorting the List
 list4=[5,3,4,6,1]
 list4.sort()
 print(list4)
 
+#Working with Dictionery to Obtain hello
 d = {'simple_key':'hello'}
 print(d['simple_key'])
 
@@ -101,5 +105,7 @@ t1=(0,1,'hello')
 print(t1)
 
 
+
+#Converting List to SET
 list5 = [1,2,2,33,4,4,11,22,3,3,2]
 print(set(list5))
