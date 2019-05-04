@@ -8,5 +8,7 @@ str='Print only the words that start with s in this sentence'
 mylist1=str.split()
 
 for word in mylist1:
-    if word[0]=='s':
+    if word[0].lower()=='s':
         print(word)
+
+
