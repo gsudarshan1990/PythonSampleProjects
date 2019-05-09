@@ -58,3 +58,5 @@ print(string7[10:30])
 
 print(string7[10:])
 print(string7[:9])
+
+
