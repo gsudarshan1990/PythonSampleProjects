@@ -64,3 +64,19 @@ for line in filehandle:
     if line.startswith('Subject:'):
         count+=1
 print('The lines start with "Subject" is:'+str(count))
+import time
+time.sleep(5)
+
+fhandle= open('C:/Users/EP833WG/Desktop/python_read_files/mbox-short.txt')
+for line in fhandle:
+    line=line.rstrip()
+    if not '@uct.ac.za' in line:
+        continue
+    print(line)
+
+
+fname=input('Enter the filename')
+try:
+    fhandle=open(fname)
+except:
+    print('File name provided is wrong')
