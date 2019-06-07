@@ -1,0 +1,5 @@
+from MyMainPackage2 import main_package_python_scripts
+from MyMainPackage2.MySubPackage import subpackage_script
+
+main_package_python_scripts.main_package_function()
+subpackage_script.sub_package_function()
