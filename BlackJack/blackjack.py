@@ -39,3 +39,22 @@ class Deck():
 
 test_deck=Deck()
 print(test_deck)
+
+
+class Hand():
+    def __init__(self):
+        self.cards=[]
+        self.value=0
+        self.aces=0
+
+    def add_card(self,card):
+        self.cards.append(card)
+        self.value+=values[card.rank]
+
+
+test_hand=Hand()
+test_deck.shuffle()
+pulled_card=test_deck.deal()
+print(pulled_card)
+test_hand.add_card(pulled_card)
+print(test_hand.value)
