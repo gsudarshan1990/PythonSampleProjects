@@ -91,3 +91,27 @@ def take_bet(chips):
                 print('Sorry you dont have enough chips. you have:{}'.format(chips.total))
             else:
                 break
+
+
+def hit(test_deck,test_hand):
+    single_card=test_deck.deal()
+    test_hand.add_card(single_card)
+    test_hand.adjust_for_aces()
+
+def hit_or_stand(test_deck,test_hand):
+    global playing
+
+    while True:
+        option = input('Enter hit or Stand? h or s')
+
+        if option[0].lower() == 'h':
+            hit(test_deck,test_hand)
+
+        elif option[0].lower() == 's':
+            print('Player Stands')
+            playing = False
+        else:
+            print('Please enter the correct option which is h or s. Currently you have entered inappropriate option')
+            continue
+
+        break
