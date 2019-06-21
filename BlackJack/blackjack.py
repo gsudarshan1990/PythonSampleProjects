@@ -115,3 +115,22 @@ def hit_or_stand(test_deck,test_hand):
             continue
 
         break
+
+def player_wins(player,dealer,chips):
+    print('Player Wins')
+    chips.win_bet()
+
+def player_busts(player,dealer,chips):
+    print('Player Lost')
+    chips.lose_bet()
+
+def dealer_wins(player,dealer,chips):
+    print('Dealer Wins, Player Lost')
+    chips.lose_bet()
+
+def dealer_busts(player,dealer,chips):
+    print('Player wins,Dealer Lost')
+    chips.win_bet()
+
+def push(player,dealer):
+    print('Player and Dealer tie!')
