@@ -134,3 +134,23 @@ def dealer_busts(player,dealer,chips):
 
 def push(player,dealer):
     print('Player and Dealer tie!')
+
+
+def show_some(player,dealer):
+    print('Dealer Hand')
+    print('Print One Hidden Card')
+    print(dealer.cards[1])
+    print('\n')
+    print('Player Hand')
+    for card in player.cards:
+        print(card)
+
+
+def show_all(player,dealer):
+    print('Dealer Hand')
+    for card in dealer.cards:
+        print(card)
+    print('\n')
+    print('Player Hand')
+    for card in player.cards:
+        print(card)
