@@ -154,3 +154,35 @@ def show_all(player,dealer):
     print('Player Hand')
     for card in player.cards:
         print(card)
+
+
+while True:
+    #Print the Opening the Statement
+
+    print('Welcome to Black Jack')
+
+    #Create Deck, shuffle and add two cards
+
+    deck=Deck()
+    deck.shuffle()
+
+    player_hand=Hand()
+    player_hand.add_card(deck.deal())
+    player_hand.add_card(deck.deal())
+
+    dealer_hand=Hand()
+    dealer_hand.add_card(deck.deal())
+    dealer_hand.add_card(deck.deal())
+
+    #Create the player chips
+
+    player_chips=Chips()
+
+
+    #take bet
+
+    take_bet(player_chips)
+
+    #show the cards
+
+    show_some(player_hand,dealer_hand)
