@@ -37,8 +37,8 @@ class Deck():
         single_card=self.deck.pop()
         return single_card
 
-test_deck=Deck()
-print(test_deck)
+#test_deck=Deck()
+#print(test_deck)
 
 
 class Hand():
@@ -60,12 +60,14 @@ class Hand():
             self.value-=10
             self.aces-=1
 
+"""
 test_hand=Hand()
 test_deck.shuffle()
 pulled_card=test_deck.deal()
 print(pulled_card)
 test_hand.add_card(pulled_card)
 print(test_hand.value)
+"""
 
 class Chips():
 
@@ -186,3 +188,53 @@ while True:
     #show the cards
 
     show_some(player_hand,dealer_hand)
+
+    while playing:
+
+        #hit or stand
+        hit_or_stand(deck,player_hand)
+
+        #Show some of the cards
+
+        show_some(player_hand,dealer_hand)
+
+        #If the Player busts
+        if player_hand.value>21:
+            player_busts(player_hand,dealer_hand,player_chips)
+            break
+
+
+        #if the player has not busted
+
+        if player_hand.value<=21:
+
+                while dealer_hand.value<player_hand.value:
+                    hit(deck,dealer_hand)
+
+                show_all(player_hand,dealer_hand)
+
+        #Different Scenarios
+
+        if dealer_hand.value>21:
+            dealer_busts(player_hand,dealer_hand,player_chips)
+        elif dealer_hand.value<player_hand.value:
+            dealer_wins(player_hand,dealer_hand,player_chips)
+        elif dealer_hand.value>player_hand.value:
+            player_wins(player_hand,dealer_hand,player_chips)
+        else:
+            push(player_hand,dealer_hand)
+
+        #Inform the total number of chips
+
+        print('The Total number of chips {}'.format(player_chips.total))
+
+        #Check whether user want to play the game again
+
+        new_game=input('Please let us know if you want to play the game again? y/n')
+
+        if new_game[0].lower() == 'y':
+            playing=True
+            continue
+        else:
+            print('Thank you for the playing')
+            break
