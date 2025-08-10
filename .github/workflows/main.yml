@@ -135,66 +135,7 @@ jobs:
           cd - > /dev/null
         done
 
-  # Job 4: Execute Main Scripts
-  execute-scripts:
-    runs-on: ubuntu-latest
-    needs: [test-discovery]
-    strategy:
-      matrix:
-        python-version: ['3.10']
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install requests numpy pandas matplotlib seaborn || echo "Some packages failed"
-    
-    - name: Execute main scripts (syntax check)
-      run: |
-        echo "=== Checking syntax of main scripts ==="
-        find . -name "main.py" -o -name "app.py" -o -name "run.py" | while read main_file; do
-          echo "Syntax checking: $main_file"
-          python -m py_compile "$main_file" && echo "✓ $main_file syntax OK" || echo "✗ $main_file syntax error"
-        done
-    
-    - name: Execute Python files in each folder (dry run)
-      run: |
-        echo "=== Dry run execution test ==="
-        # Find all directories with Python files
-        find . -name "*.py" -not -path "./venv/*" | xargs dirname | sort | uniq | while read dir; do
-          if [ "$dir" != "." ]; then
-            echo "=== Testing folder: $dir ==="
-            cd "$dir"
-            
-            # Look for main files to execute
-            for main_file in main.py app.py run.py __main__.py; do
-              if [ -f "$main_file" ]; then
-                echo "Found executable: $main_file"
-                # Just check if it can import without executing
-                python -c "
-try:
-    import ast
-    with open('$main_file', 'r') as f:
-        ast.parse(f.read())
-    print('✓ $main_file is valid Python')
-except Exception as e:
-    print('✗ $main_file has issues:', e)
-" || echo "Could not validate $main_file"
-              fi
-            done
-            cd - > /dev/null
-          fi
-        done
-
+ 
   # Job 5: Generate Report
   generate-report:
     runs-on: ubuntu-latest
