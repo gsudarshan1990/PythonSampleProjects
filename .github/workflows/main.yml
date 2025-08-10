@@ -85,39 +85,4 @@ jobs:
         done
 
  
-  # Job 5: Generate Report
-  generate-report:
-    runs-on: ubuntu-latest
-    needs: [code-quality, run-tests, execute-scripts]
-    if: always()
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Generate Project Report
-      run: |
-        echo "# Python Multi-Folder Repository CI/CD Report" > report.md
-        echo "Generated on: $(date)" >> report.md
-        echo "" >> report.md
-        
-        echo "## Repository Structure" >> report.md
-        echo "\`\`\`" >> report.md
-        find . -name "*.py" -not -path "./venv/*" | head -30 >> report.md
-        echo "\`\`\`" >> report.md
-        echo "" >> report.md
-        
-        echo "## Python Files Count by Folder" >> report.md
-        find . -name "*.py" -not -path "./venv/*" | xargs dirname | sort | uniq -c >> report.md
-        echo "" >> report.md
-        
-        echo "## Test Files Found" >> report.md
-        find . -name "test_*.py" -o -name "*_test.py" >> report.md || echo "No test files found" >> report.md
-        
-        cat report.md
-    
-    - name: Upload report as artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: ci-report
-        path: report.md
+  
