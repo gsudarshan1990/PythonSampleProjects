@@ -34,57 +34,9 @@ jobs:
         isort --check-only --diff . || echo "Import sorting issues found (not blocking)"
       continue-on-error: true
 
-  # Job 2: Test Discovery and Execution
-  test-discovery:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.8, 3.9, '3.10', '3.11']
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        # Install common testing and analysis tools
-        pip install pytest pytest-cov coverage unittest-xml-reporting
-        
-        # Install project dependencies if they exist
-        if [ -f requirements.txt ]; then 
-          pip install -r requirements.txt
-        fi
-        
-        # Look for other requirement files
-        find . -name "requirements*.txt" -not -path "./venv/*" -not -path "./.venv/*" | while read req_file; do
-          echo "Installing from $req_file"
-          pip install -r "$req_file" || echo "Could not install from $req_file"
-        done
-        
-        # Install common Python packages that might be needed
-        pip install requests numpy pandas matplotlib seaborn scikit-learn flask django fastapi || echo "Some optional packages failed to install"
-    
-    - name: Discover Python project structure
-      run: |
-        echo "=== Repository Structure ==="
-        find . -name "*.py" -not -path "./venv/*" -not -path "./.venv/*" | head -20
-        
-        echo -e "\n=== Folders with Python files ==="
-        find . -name "*.py" -not -path "./venv/*" -not -path "./.venv/*" | xargs dirname | sort | uniq
-        
-        echo -e "\n=== Test files found ==="
-        find . -name "test_*.py" -o -name "*_test.py" -o -name "tests.py" | grep -v venv
-        
-        echo -e "\n=== Main Python files ==="
-        find . -name "main.py" -o -name "app.py" -o -name "run.py" -o -name "__main__.py" | grep -v venv
+  
 
-  # Job 3: Run Unit Tests
+  # Job 2: Run Unit Tests
   run-tests:
     runs-on: ubuntu-latest
     needs: [code-quality]
