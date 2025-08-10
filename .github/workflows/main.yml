@@ -28,10 +28,7 @@ jobs:
       run: |
         pylint --exit-zero --output-format=text . --ignore=venv,env,.venv,.env || echo "Pylint completed with issues"
       continue-on-error: true
-      run: |
-        black --check --diff . || echo "Code formatting issues found (not blocking)"
-      continue-on-error: true
-    
+          
     - name: Check import sorting with isort
       run: |
         isort --check-only --diff . || echo "Import sorting issues found (not blocking)"
